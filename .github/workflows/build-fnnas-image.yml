@@ -64,7 +64,7 @@ on:
       fnnas_url:
         description: "Custom fnnas image download url"
         required: false
-        default: "https://github.com/ophub/fnnas/releases/download/fnnas_base_image/fnnas-official-arm64-image_rockchip_1253.img.xz"
+        default: ""
       builder_name:
         description: "Set fnnas builder signature"
         required: false
@@ -202,7 +202,7 @@ jobs:
               latest_version=$(curl -s \
                   -H "Accept: application/vnd.github+json" \
                   -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-                  https://api.github.com/repos/zj2004/fnnas/releases?per_page=20 | \
+                  https://api.github.com/repos/ophub/fnnas/releases?per_page=20 | \
                   jq -r --arg RTK "fnnas_base_image" \
                   --arg BOARD "${fnnas_base_version}" \
                   '[.[] | select(.tag_name | contains($RTK))] |
