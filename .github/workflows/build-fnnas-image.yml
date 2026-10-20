@@ -24,7 +24,7 @@ on:
       fnnas_board:
         description: "Select fnnas device board"
         required: false
-        default: "rockchip50"
+        default: "r08"
         type: choice
         options:
           - allwinner
@@ -268,13 +268,14 @@ on:
           - zk-r39a
           - ztl-a568
           - zysj
+          - r08
       kernel_repo:
         description: "Set fnnas kernel repository"
         required: false
-        default: "ophub/fnnas"
+        default: "zj2004/fnnas"
         type: choice
         options:
-          - ophub/fnnas
+          - zj2004/fnnas
       fnnas_kernel:
         description: "Select fnnas kernel version"
         required: false
@@ -303,12 +304,12 @@ on:
       builder_name:
         description: "Set fnnas builder signature"
         required: false
-        default: "ophub"
+        default: "zj2004"
         type: choice
         options:
           - ophub
           - angel
-          - yourname
+          - zj2004
 
 env:
   TZ: Etc/UTC
@@ -437,7 +438,7 @@ jobs:
               latest_version=$(curl -s \
                   -H "Accept: application/vnd.github+json" \
                   -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-                  https://api.github.com/repos/ophub/fnnas/releases?per_page=20 | \
+                  https://api.github.com/repos/zj2004/fnnas/releases?per_page=20 | \
                   jq -r --arg RTK "fnnas_base_image" \
                   --arg BOARD "${fnnas_base_version}" \
                   '[.[] | select(.tag_name | contains($RTK))] |
@@ -471,7 +472,7 @@ jobs:
 
           # Create directory symlinks for packaging
           ln -sf /builder/fnnas ${{ github.workspace }}/fnnas
-          ln -sf /builder/fnnas /home/runner/work/_actions/ophub/fnnas/main/fnnas
+          ln -sf /builder/fnnas /home/runner/work/_actions/zj2004/fnnas/main/fnnas
 
           echo "build_tag=${build_tag}" >> ${GITHUB_ENV}
           echo "status=success" >> ${GITHUB_OUTPUT}
@@ -490,7 +491,7 @@ jobs:
           fnnas_size: ${{ inputs.fnnas_size }}
 
       - name: Upload packaged FnNAS to Release
-        uses: ophub/upload-to-releases@main
+        uses: zj2004/upload-to-releases@main
         if: ${{ env.PACKAGED_STATUS == 'success' && !cancelled() }}
         with:
           tag: ${{ env.build_tag }}
