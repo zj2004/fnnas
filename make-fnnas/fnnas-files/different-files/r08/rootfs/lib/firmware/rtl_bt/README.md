@@ -1,0 +1,1 @@
+add rtl8821cs_config.bin
