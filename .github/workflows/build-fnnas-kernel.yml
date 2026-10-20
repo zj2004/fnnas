@@ -39,7 +39,7 @@ on:
       debs_repo:
         description: "Set fnnas debs repository"
         required: false
-        default: "ophub/fnnas"
+        default: "zj2004/fnnas"
       debs_install:
         description: "Install kernel debs files"
         required: false
@@ -144,7 +144,7 @@ jobs:
           latest_version=$(curl -s \
               -H "Accept: application/vnd.github+json" \
               -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-              https://api.github.com/repos/ophub/fnnas/releases?per_page=20 | \
+              https://api.github.com/repos/zj2004/fnnas/releases?per_page=20 | \
               jq -r --arg RTK "fnnas_base_image" \
               --arg BOARD "${fnnas_base_version}" \
               '[.[] | select(.tag_name | contains($RTK))] |
@@ -173,12 +173,12 @@ jobs:
           [[ "${?}" -ne "0" ]] && echo "Error: Download failed." && exit 1
 
           ln -sf /builder/fnnas ${{ github.workspace }}/fnnas
-          ln -sf /builder/fnnas /home/runner/work/_actions/ophub/fnnas/main/fnnas
+          ln -sf /builder/fnnas /home/runner/work/_actions/zj2004/fnnas/main/fnnas
 
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Compile the FnNAS kernel
-        uses: ophub/fnnas@main
+        uses: zj2004/fnnas@main
         if: ${{ steps.down.outputs.status == 'success' && !cancelled() }}
         with:
           build_target: kernel
@@ -189,7 +189,7 @@ jobs:
           dtbs_install: ${{ inputs.dtbs_install }}
 
       - name: Upload Kernel to Release
-        uses: ophub/upload-to-releases@main
+        uses: zj2004/upload-to-releases@main
         if: ${{ env.PACKAGED_STATUS == 'success' && !cancelled() }}
         with:
           tag: kernel_fnnas
