@@ -79,14 +79,14 @@ ophub_release_file="etc/ophub-release"
 fnnas_conf="etc/fnnas.conf"
 
 # Dependency files repository
-depends_repo="https://github.com/ophub/amlogic-s9xxx-armbian"
+depends_repo="https://github.com/zj2004/amlogic-s9xxx-armbian"
 # U-Boot files repository
-uboot_repo="https://github.com/ophub/u-boot"
+uboot_repo="https://github.com/zj2004/u-boot"
 # Firmware files repository
 firmware_repo="https://github.com/ophub/firmware"
 
 # Kernel download repository
-kernel_repo="https://github.com/ophub/fnnas"
+kernel_repo="https://github.com/zj2004/fnnas"
 # Default kernel versions
 allwinner_kernel=("6.12.y" "6.18.y")
 amlogic_kernel=("6.12.y" "6.18.y")
@@ -96,7 +96,7 @@ auto_kernel="true"
 # Initialize the kernel array
 declare -A tags_list
 
-# Amlogic u-boot files: https://github.com/ophub/u-boot/tree/main/u-boot/amlogic/overload
+# Amlogic u-boot files: https://github.com/zj2004/u-boot/tree/main/u-boot/amlogic/overload
 # Array entries omit the "u-boot-" prefix of the file name (e.g. p201.bin = u-boot-p201.bin)
 uboot_meson_gxl=("p201.bin" "p212.bin" "s905x-s912.bin" "n1.bin" "r3300l.bin" "s905x-s905lb.bin")
 uboot_meson_gxm=("p212.bin" "s905x-s912.bin" "zyxq.bin")
